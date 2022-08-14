@@ -1,7 +1,7 @@
 <template>
   <div id="slider-component">
     <div class="indicator">{{min}}</div>
-    <div class="range-slider" ref="slider">
+    <div class="range-slider" ref="slider" :style="{ '--slider': sliderWidth }">
       <div class="progress"></div>
       <input type="range" :min="min" :max="max" :value="value" @input="emitChange" />
     </div>
@@ -10,7 +10,7 @@
 </template>
 
 <script>
-import { onMounted, ref, onUpdated} from 'vue';
+import { onMounted, ref, onUpdated, watch, computed} from 'vue';
 
 export default{
     emits:['value-changed'],
@@ -34,20 +34,14 @@ export default{
             const value = Number(e.target.value);
             ctx.emit('value-changed', value)
         }
-        
-        onMounted(()=>{
-            updateSliderProgress()
-        })
-        onUpdated(()=>{
-            updateSliderProgress()
-        })
 
-        function updateSliderProgress(){
+        const sliderWidth = computed(() => {
             percent.value = ((props.value - props.min)/(props.max - props.min)) * 100;
-            slider.value.style.setProperty('--slider', `${percent.value}%`);
-        }
+            return percent.value+'%';
+        });
 
         return{
+            sliderWidth,
             slider,
             emitChange
         }

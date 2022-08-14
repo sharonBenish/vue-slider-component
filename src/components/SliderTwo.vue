@@ -5,7 +5,6 @@
         <input type="range" :min="min" :max="max" :value="modelValue" @input="$emit('update:modelValue', Number($event.target.value))" />
     </div>
     <span class="indicator">{{max}}</span>
-    
   </div>
 </template>
 
@@ -24,7 +23,7 @@ export default{
         },
         sliderBackground:{
             type:String,
-            default:"#C6AEE7",
+            default:"black",
         },
         progressColor:{
             type:String,
@@ -36,28 +35,22 @@ export default{
         const slider = ref(null)
         const percent = ref('')
         
-        onMounted(()=>{
-            updateSliderProgress()
-        })
-        onUpdated(()=>{
-            updateSliderProgress()
-        })
-
-        function updateSliderProgress(){
+        const sliderWidth = computed(() => {
             percent.value = ((props.modelValue - props.min)/(props.max - props.min)) * 100;
-            slider.value.style.setProperty('--slider', `${percent.value}%`);
-        }
+            return percent.value+'%';
+        });
 
         const sliderStyles = computed(()=>{
             return {
                 '--progressColor' : props.progressColor,
                 '--sliderBackground' : props.sliderBackground,
-                '--thumbShadow' : props.sliderBackground + 'ae'
-                
+                '--thumbShadow' : props.sliderBackground + 'ae',
+                '--slider': sliderWidth.value
             }
         })
 
         return{
+            sliderWidth,
             slider,
             sliderStyles
         }
