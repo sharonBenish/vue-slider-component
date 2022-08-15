@@ -1,5 +1,5 @@
 <template>
-  <div id="slider-component">
+  <div class="slider-component">
     <div class="indicator">{{min}}</div>
     <div class="range-slider" ref="slider" :style="{ '--slider': sliderWidth }">
       <div class="progress"></div>
@@ -51,7 +51,7 @@ export default{
 </script>
 
 <style scoped>
-#slider-component{
+.slider-component{
     display: flex;
     gap:20px ;
     align-items: center;

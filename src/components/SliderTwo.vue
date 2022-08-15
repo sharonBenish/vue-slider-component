@@ -1,5 +1,5 @@
 <template>
-  <div id="slider2" :style="{'color' : progressColor}">
+  <div class="slider2" :style="{'color' : progressColor}">
     <span class="indicator">{{min}}</span>
     <div class="range-slider" ref="slider" :style="sliderStyles">
         <input type="range" :min="min" :max="max" :value="modelValue" @input="$emit('update:modelValue', Number($event.target.value))" />
@@ -9,7 +9,7 @@
 </template>
 
 <script>
-import { onMounted, ref, onUpdated, computed} from 'vue';
+import { ref, computed} from 'vue';
 export default{
     props:{
         max:{
@@ -23,7 +23,7 @@ export default{
         },
         sliderBackground:{
             type:String,
-            default:"black",
+            default:"#C6AEE7",
         },
         progressColor:{
             type:String,
@@ -60,7 +60,7 @@ export default{
 </script>
 
 <style scoped>
-#slider2{
+.slider2{
     border-radius: 5px;
     background: #fff;
     padding:1.5rem 1rem;
